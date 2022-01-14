@@ -1,0 +1,58 @@
+name: Package upload
+on:
+  workflow_run:
+    workflows: ['CI']
+    types:
+      - completed
+    branches:
+      - master
+
+# `makepkg` cannot be run as root. The job uses the "build" user instead to make
+# the package.
+#
+# As such, the job additionally needs to do the following:
+# - Explicitly set "GNUPGHOME" to a location searched by the gpg-agent of the
+# "build" user.
+# - Give ownership of package files and the imported GPG keys to the build user
+# as they are brought in by the "root" user.
+
+jobs:
+  package-upload:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    container:
+      image: martynas/archlinux:latest
+      options: --user root
+    steps:
+      - name: Import GPG key for signing package
+        uses: crazy-max/ghaction-import-gpg@v4.3.0
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+        env:
+          GNUPGHOME: '/home/build/.gnupg'
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Give full access of package files and GPG keys to build
+        run: chown -R build .; chown -R build /home/build/.gnupg
+
+      - name: Add packager information
+        run: echo 'PACKAGER="Anurag Roy <anuragr9847@gmail.com>"' >> /etc/makepkg.conf
+
+      - name: Build package
+        run: sudo -u build makepkg --syncdeps --noconfirm --sign
+
+      - name: Upload package and signature to database
+        uses: nkoppel/push-files-to-another-repository@v1.1.0
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          source-files: '*.pkg.tar.zst*'
+          destination-username: 'RoyARG02'
+          destination-repository: 'royarg-repo'
+          destination-directory: 'os/x86_64'
+          destination-branch: 'master'
+          commit-email: 'anuragr9847@gmail.com'
+          commit-message: 'Package update from ORIGIN_COMMIT'

@@ -1,0 +1,39 @@
+name: CI
+on:
+  push:
+    paths:
+      - 'PKGBUILD'
+      - '.SRCINFO'
+  pull_request:
+    types:
+      - opened
+    branches:
+      - master
+
+jobs:
+  package-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Validate PKGBUILD
+        uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: 'pkgbuild'
+          # The "pkgname" is actually the folder where PKGBUILD is located,
+          # which at the root of the repository
+          pkgname: '.'
+
+      - name: Validate SRCINFO
+        uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: 'srcinfo'
+          pkgname: '.'
+
+      - name: Validate binary
+        uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: 'run'
+          pkgname: '.'
+          command: 'dmenu -v'
