@@ -8,20 +8,17 @@
 # Cleanup function
 cleanup() {
   # Remove directories and files created/downloaded by makepkg
-  rm --force --recursive pkg src *.part *.pkg.tar.zst *.tar.gz *.desktop *.1 LICENSE
+  rm --force --recursive pkg src dmenu *.pkg.tar.zst
 }
 
 trap cleanup SIGINT EXIT
 
-# Generate the checksums in the PKGBUILD file
-updpkgsums
+# Build the package, potentially fetching a newer version
+makepkg
 
-# Remove files downloaded by updpkgsums
-rm *.tar.gz *.desktop *.1 LICENSE
-
-# Check if the checksums in the PKGBUILD file changed
-if [ -n "$(git diff PKGBUILD | grep '^+md5sums')" ]; then
-  printf "Updated the checksums in the PKGBUILD file\n"
+# Check if the PKGBUILD file changed
+if [ -n "$(git status --short | grep ' PKGBUILD$')" ]; then
+  printf "Updated the PKGBUILD file\n"
   git add PKGBUILD
   printf "Added the PKGBUILD file to the commit\n"
 fi
