@@ -2,7 +2,7 @@
 _pkgname="dmenu"
 pkgname="$_pkgname-royarg-git"
 pkgver=5.1.r2.bd73af3
-pkgrel=2
+pkgrel=3
 pkgdesc="A modified version of the dynamic menu for X, originally designed for dwm."
 arch=('i686' 'x86_64')
 url="https://github.com/RoyARG02/$_pkgname"
@@ -21,12 +21,13 @@ pkgver() {
 
 build() {
   cd "$_pkgname"
-  make
+  make \
+    X11INC=/usr/include/X11 X11LIB=/usr/lib/X11
 }
 
 package() {
   cd "$_pkgname"
-  make PREFIX=/usr DESTDIR="$pkgdir/" install
-  install -Dm644 README "$pkgdir"/usr/share/doc/$_pkgname/README
-  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$_pkgname/LICENSE
+  make PREFIX=/usr DESTDIR="$pkgdir" install
+  install -Dm644 README "$pkgdir"/usr/share/doc/$pkgname/README
+  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
