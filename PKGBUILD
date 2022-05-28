@@ -2,7 +2,7 @@
 _pkgname="dmenu"
 pkgname="$_pkgname-royarg-git"
 pkgver=5.1.r2.bd73af3
-pkgrel=3
+pkgrel=4
 pkgdesc="A modified version of the dynamic menu for X, originally designed for dwm."
 arch=('i686' 'x86_64')
 url="https://github.com/RoyARG02/$_pkgname"
@@ -11,6 +11,7 @@ depends=('sh' 'libxinerama' 'libxft')
 makedepends=('git')
 provides=("$_pkgname")
 conflicts=("$_pkgname" "$_pkgname-git")
+install="$pkgname.install"
 source=("git+$url.git")
 md5sums=('SKIP')
 
