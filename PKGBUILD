@@ -2,7 +2,7 @@
 _pkgname="dmenu"
 pkgname="$_pkgname-royarg-git"
 pkgver=5.1.r2.bd73af3
-pkgrel=1
+pkgrel=4
 pkgdesc="Testing do not merge."
 arch=('i686' 'x86_64')
 url="https://github.com/RoyARG02/$_pkgname"
@@ -11,21 +11,24 @@ depends=('sh' 'libxinerama' 'libxft')
 makedepends=('git')
 provides=("$_pkgname")
 conflicts=("$_pkgname" "$_pkgname-git")
+install="$pkgname.install"
 source=("git+$url.git")
 md5sums=('SKIP')
 
 pkgver() {
-	cd "$_pkgname"
-	git describe --long --tags | sed 's/\([^-]*-\)g/r\1/;s/-/./g'
+  cd "$_pkgname"
+  git describe --long --tags | sed 's/\([^-]*-\)g/r\1/;s/-/./g'
 }
 
 build() {
-	cd "$_pkgname"
-	make
+  cd "$_pkgname"
+  make \
+    X11INC=/usr/include/X11 X11LIB=/usr/lib/X11
 }
 
 package() {
-	cd "$_pkgname"
-	make PREFIX=/usr DESTDIR="$pkgdir/" install
-  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$_pkgname/LICENSE
+  cd "$_pkgname"
+  make PREFIX=/usr DESTDIR="$pkgdir" install
+  install -Dm644 README "$pkgdir"/usr/share/doc/$pkgname/README
+  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }

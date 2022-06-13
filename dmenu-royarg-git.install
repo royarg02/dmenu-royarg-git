@@ -1,0 +1,10 @@
+#!/bin/sh
+
+post_install() {
+  cat << END
+╔════════════════════════════════════════════════════════════════════════════╗
+║ IMPORTANT: Install "libxft-bgra" from the AUR(replace existing "libxft"    ║
+║ package) to prevent dmenu from crashing when displaying color emojis.      ║
+╚════════════════════════════════════════════════════════════════════════════╝
+END
+}
