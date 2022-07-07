@@ -34,9 +34,9 @@ jobs:
           target: 'srcinfo'
           pkgname: '.'
 
-      - name: Validate binary
+      - name: Validate binary with Xvfb
         uses: 2m/arch-pkgbuild-builder@v1.18
         with:
           target: 'run'
           pkgname: '.'
-          command: 'dmenu -v'
+          command: 'yay -S --noconfirm xorg-server-xvfb; xvfb-run dmenu -v'
