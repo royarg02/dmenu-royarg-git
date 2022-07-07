@@ -39,4 +39,4 @@ jobs:
         with:
           target: 'run'
           pkgname: '.'
-          command: 'yay -S xorg-server-xvfb; xvfb-run dmenu -v'
+          command: 'yay -S --noconfirm xorg-server-xvfb; xvfb-run dmenu -v'
