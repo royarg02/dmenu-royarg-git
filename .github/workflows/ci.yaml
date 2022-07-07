@@ -35,6 +35,8 @@ jobs:
           pkgname: '.'
 
       - name: Validate binary with Xvfb
-        uses: GabrielBB/xvfb-action@v1.6
+        uses: 2m/arch-pkgbuild-builder@v1.18
         with:
-          run: 'dmenu -v'
+          target: 'run'
+          pkgname: '.'
+          command: 'yay -S xorg-server-xvfb; xvfb-run dmenu -v'
