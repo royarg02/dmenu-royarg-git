@@ -2,7 +2,7 @@
 _pkgname="dmenu"
 pkgname="$_pkgname-royarg-git"
 pkgver=5.1.r8.36a1908
-pkgrel=1
+pkgrel=2
 pkgdesc="A modified version of the dynamic menu for X, originally designed for dwm."
 arch=('i686' 'x86_64')
 url="https://github.com/RoyARG02/$_pkgname"
@@ -14,6 +14,7 @@ optdepends=('curl: to fetch and check updates for emoji through dmenu_emoji'
   'libnotify: to notify update check and fetch for dmenu_emoji'
   'systemd: to control login sessions through dmenu_power_opt'
   'xclip: to copy selected emoji to clipboard from dmenu_emoji'
+  'xorg-xrdb: for loading X resources'
 )
 provides=("$_pkgname")
 conflicts=("$_pkgname" "$_pkgname-git")
