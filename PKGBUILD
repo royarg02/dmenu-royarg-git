@@ -1,7 +1,7 @@
 # Maintainer: Anurag Roy <anuragr9847@gmail.com>
 _pkgname="dmenu"
 pkgname="$_pkgname-royarg-git"
-pkgver=5.1.r6.cdce3a7
+pkgver=5.1.r8.36a1908
 pkgrel=1
 pkgdesc="A modified version of the dynamic menu for X, originally designed for dwm."
 arch=('i686' 'x86_64')
@@ -9,6 +9,13 @@ url="https://github.com/RoyARG02/$_pkgname"
 license=('MIT')
 depends=('sh' 'libxinerama' 'libxft')
 makedepends=('git')
+optdepends=('curl: to fetch and check updates for emoji through dmenu_emoji'
+  'elogind: to control login sessions through dmenu_power_opt - non-systemd systems'
+  'gtk3: for launching applications through dmenu_dex_run'
+  'libnotify: to notify update check and fetch for dmenu_emoji'
+  'systemd: to control login sessions through dmenu_power_opt'
+  'xclip: to copy selected emoji to clipboard from dmenu_emoji'
+)
 provides=("$_pkgname")
 conflicts=("$_pkgname" "$_pkgname-git")
 install="$pkgname.install"
