@@ -10,9 +10,9 @@ license=('MIT')
 depends=('sh' 'libxinerama' 'libxft')
 makedepends=('git')
 optdepends=('curl: to fetch and check updates for emoji through dmenu_emoji'
-  'elogind: to control login sessions through dmenu_power_opt - non-systemd systems'
   'gtk3: for launching applications through dmenu_dex_run'
   'libnotify: to notify update check and fetch for dmenu_emoji'
+  'systemd: to control login sessions through dmenu_power_opt'
   'xclip: to copy selected emoji to clipboard from dmenu_emoji'
 )
 provides=("$_pkgname")
