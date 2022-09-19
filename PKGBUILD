@@ -1,7 +1,7 @@
 # Maintainer: Anurag Roy <anuragr9847@gmail.com>
 _pkgname="dmenu"
 pkgname="$_pkgname-royarg-git"
-pkgver=5.1.r10.46d53a6
+pkgver=5.1.r11.19878f5
 pkgrel=1
 pkgdesc="A modified version of the dynamic menu for X, originally designed for dwm."
 arch=('i686' 'x86_64')
@@ -18,7 +18,6 @@ optdepends=('curl: to fetch and check updates for emoji through dmenu_emoji'
 )
 provides=("$_pkgname")
 conflicts=("$_pkgname" "$_pkgname-git")
-install="$pkgname.install"
 source=("git+$url.git")
 md5sums=('SKIP')
 
