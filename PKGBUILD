@@ -1,7 +1,7 @@
 # Maintainer: Anurag Roy <anuragr9847@gmail.com>
 _pkgname="dmenu"
 pkgname="$_pkgname-royarg-git"
-pkgver=5.2.r1.e83d2bd
+pkgver=5.2.r2.2f4590a
 pkgrel=1
 pkgdesc="A modified version of the dynamic menu for X, originally designed for dwm."
 arch=('i686' 'x86_64')
